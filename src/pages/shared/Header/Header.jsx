@@ -7,7 +7,7 @@ import Marquee from "react-fast-marquee";
 const Header = () => {
   return (
     <Container>
-      <div className="text-center">
+      <div className="text-center mt-5">
         <img src={logo} alt="" />
         <p className="text-secondary">Journalism Without Fear or Fear</p>
         <p>{moment().format("dddd, MMMM D, YYYY, h:mm a")}</p>

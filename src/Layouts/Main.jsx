@@ -16,7 +16,7 @@ const Main = () => {
           </Col>
 
           <Col lg={6}>
-            <h2>Main Content comming</h2>
+            <h2 className="mt-4">Main Content comming</h2>
           </Col>
 
           <Col lg={3}>

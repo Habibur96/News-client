@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Providers/AuthProvider/AuthProvider";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+  const handleRegister = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    // const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    form.reset("");
+    console.log(name, email, password);
+    createUser(email, password)
+      .then((result) => {
+        const createdUser = result.user;
+        console.log(createdUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Container>
-      <Form className="w-50 mx-auto pt-5">
+      <Form onSubmit={handleRegister} className="w-50 mx-auto pt-5">
         <h3>Registration Please</h3>
         <Form.Group className="mb-3 pt-3" controlId="formBasicEmail">
           <Form.Label>Name</Form.Label>
@@ -18,12 +38,7 @@ const Register = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Photo URL</Form.Label>
-          <Form.Control
-            type="text"
-            name="photo"
-            placeholder="Photo URL"
-            required
-          />
+          <Form.Control type="text" name="photo" placeholder="Photo URL" />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -41,6 +56,7 @@ const Register = () => {
             type="password"
             name="password"
             placeholder="Password"
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -51,7 +67,7 @@ const Register = () => {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Login
+          Submit
         </Button>
         <br />
         <Form.Text className="text-secondary">

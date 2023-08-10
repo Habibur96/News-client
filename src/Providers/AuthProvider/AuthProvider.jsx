@@ -8,25 +8,30 @@ import {
 } from "firebase/auth";
 
 import app from "../../firebase/firebase.config";
+
 export const AuthContext = createContext(null);
 
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   //==================== Create User=====================
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   //==================== Login =========================
   const login = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   //================ Signout || Logout========================
 
   const logOut = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
@@ -35,6 +40,7 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log("Logged in user inside auth state observer", currentUser);
       setUser(currentUser);
+      setLoading(false);
     });
     //stop observing while unmounting
     return () => {
@@ -47,6 +53,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     login,
     logOut,
+    loading,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

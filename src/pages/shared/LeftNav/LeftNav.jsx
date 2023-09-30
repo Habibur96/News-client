@@ -7,7 +7,7 @@ import thired from "../../../assets/3.png";
 const LeftNav = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
+    fetch(" https://news-dragon-client-server.vercel.app/categories")
       .then((res) => res.json())
 
       .then((data) => setCategories(data))
